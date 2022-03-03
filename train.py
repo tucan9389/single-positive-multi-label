@@ -236,16 +236,17 @@ if __name__ == '__main__':
             'pascal': 1.5,
             'coco': 2.9,
             'nuswide': 1.9,
-            'cub': 31.4
+            'cub': 31.4,
+            'pascal_food': 1.1,
         }
     }
 
     P = {}
     
     # Top-level parameters:
-    P['dataset'] = 'nuswide' # pascal, coco, nuswide, cub
+    P['dataset'] = 'pascal_food' # pascal, coco, nuswide, cub
     P['loss'] = 'role' # bce, bce_ls, iun, iu, pr, an, an_ls, wan, epr, role
-    P['train_mode'] = 'linear_init' # linear_fixed_features, end_to_end, linear_init
+    P['train_mode'] = 'end_to_end' # linear_fixed_features, end_to_end, linear_init
     P['val_set_variant'] = 'clean' # clean, observed
     
     # Paths and filenames:
@@ -321,7 +322,15 @@ if __name__ == '__main__':
         (feature_extractor_init, linear_classifier_init, estimated_labels_init, logs) = execute_training_run(P_temp, feature_extractor=None, linear_classifier=None)
         print('fine-tuning from trained linear classifier')
     for bsize in [8, 16]:
-        for lr in [1e-2, 1e-3, 1e-4, 1e-5]:
+        for lr in [1e-5, 1e-4, 1e-3, 1e-2]:
+            print()
+            print('='*50)
+            print('='*50)
+            print("bsize:", bsize)
+            print("lr:", lr)
+            print('='*50)
+            print('='*50)
+            print()
             now_str = datetime.datetime.now().strftime("%Y_%m_%d_%X").replace(':','-')
             P['bsize'] = bsize
             P['lr'] = lr

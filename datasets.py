@@ -32,6 +32,12 @@ def get_metadata(dataset_name):
             'path_to_dataset': 'data/cub',
             'path_to_images': 'data/cub/CUB_200_2011/CUB_200_2011/images'
         }
+    elif dataset_name == 'pascal_food':
+        meta = {
+            'num_classes': 363,
+            'path_to_dataset': 'data/pascal_food',
+            'path_to_images': 'data/pascal_food/food_v4/JPEGImages'
+        }
     else:
         raise NotImplementedError('Metadata dictionary not implemented.')
     return meta
@@ -107,6 +113,8 @@ def get_data(P):
     elif P['dataset'] == 'nuswide':
         ds = multilabel(P, tx).get_datasets()
     elif P['dataset'] == 'cub':
+        ds = multilabel(P, tx).get_datasets()
+    elif P['dataset'] == 'pascal_food':
         ds = multilabel(P, tx).get_datasets()
     else:
         raise ValueError('Unknown dataset.')
